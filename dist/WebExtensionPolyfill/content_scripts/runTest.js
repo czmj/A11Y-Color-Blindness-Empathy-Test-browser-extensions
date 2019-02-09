@@ -29,6 +29,7 @@
     }
 
     removeTests(testType);
+    window.localStorage.setItem(testType, testClass);
     document.documentElement.classList.add(testClass);
   }
 
@@ -47,10 +48,7 @@
         document.documentElement.classList.remove(colorBlindnessClasses[i]);
       }
     }
-  }
-
-  function saveTest(testType, testClass) {
-    window.localStorage.setItem(testType, testClass);
+    window.localStorage.removeItem(testType);
   }
 
   browser.runtime.onMessage.addListener(message => {
@@ -64,7 +62,6 @@
     } else {
       removeTests(message.testType);
     }
-    saveTest(message.testType, message.testClass);
   });
 
   const svgFilterTemplate = `<svg 
