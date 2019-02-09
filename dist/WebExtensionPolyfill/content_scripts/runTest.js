@@ -49,6 +49,10 @@
     }
   }
 
+  function saveTest(testType, testClass) {
+    window.localStorage.setItem(testType, testClass);
+  }
+
   browser.runtime.onMessage.addListener(message => {
     if (message.command !== "reset") {
       toggleTest(
@@ -60,6 +64,7 @@
     } else {
       removeTests(message.testType);
     }
+    saveTest(message.testType, message.testClass);
   });
 
   const svgFilterTemplate = `<svg 
